@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".LoginActivity">
+    
+    <ImageView
+        android:id="@+id/loginImageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/user_name"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:id="@+id/userNameText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_user_name"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="22sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:passwordToggleEnabled="true"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:id="@+id/passwordText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_password"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:textSize="22sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/loginLoginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/Login"
+        android:textSize="22sp"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        />
+
+    <Button
+        android:id="@+id/loginRegisterBtn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/Register"
+        android:textSize="22sp"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_button"
+        />
+
+</LinearLayout>

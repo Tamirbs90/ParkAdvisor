@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Park Advisor</string>
+    <string name="Driver_Name">Driver Name:</string>
+    <string name="Sign_In">Login</string>
+    <string name="Guest">Register</string>
+    <string name="Park_Advisor">PARK ADVISOR</string>
+    <string name="App_Logo">App Logo</string>
+    <string name="prompt_user_name">User Name</string>
+    <string name="prompt_password">Password</string>
+    <string name="error_invalid_password">Password must be above 5 characters</string>
+    <string name="error_incorrect_password">Wrong password!</string>
+    <string name="error_field_required">Password</string>
+    <string name="login_failed">"This field is required"</string>
+    <string name="Register">Register</string>
+    <string name="not_registered">Not Registered?</string>
+    <string name="first_name">First Name</string>
+    <string name="user_name">User Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="Login">Login</string>
+</resources>
