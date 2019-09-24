@@ -13,8 +13,9 @@
 
     <application>
         <activity
-            android:name="com.example.monscanner.CameraActivity"
+            android:name="com.example.monscanner.CameraBackendActivity"
             android:configChanges="orientation"
+            android:label="@string/lib_name"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity

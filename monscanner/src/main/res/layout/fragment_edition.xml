@@ -8,15 +8,6 @@
     android:background="@color/grey"
     tools:context=".EditionFragment">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/rognedImageView"
         android:layout_width="match_parent"
@@ -26,7 +17,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
-        android:contentDescription="@string/image_scannee" />
+        android:contentDescription="@string/image_scan" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -37,33 +28,35 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/rgaucheButton"
+            android:id="@+id/leftButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/rotation_gauche"
+            android:contentDescription="@string/left_rotation"
             android:scaleType="centerInside"
             android:src="@drawable/rotategauche" />
 
         <ImageButton
-            android:id="@+id/rdroiteButton"
+            android:id="@+id/rightButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/rotation_droite"
+            android:contentDescription="@string/right_rotation"
             android:scaleType="centerInside"
             android:src="@drawable/rotatedroite" />
 
         <Button
-            android:id="@+id/validationButton"
+            android:id="@+id/confirmButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/round_rectangle_button"
+            android:textAllCaps="false"
+            android:textSize="20sp"
             android:layout_marginEnd="8dp"
-            android:text="@string/valider" />
+            android:text="@string/confirm" />
     </LinearLayout>
 
 </LinearLayout>

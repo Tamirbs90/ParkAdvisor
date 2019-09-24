@@ -7,18 +7,24 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="420dp"
-        android:layout_height="413dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/parking_sign"
-        tools:layout_editor_absoluteY="-2dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/signInBtn"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/signInBtn"
         android:layout_width="145dp"
         android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/round_button2"
         android:scrollbarSize="4dp"
         android:text="@string/Sign_In"
         android:textSize="20sp"
@@ -29,9 +35,9 @@
         android:id="@+id/guestBtn"
         android:layout_width="145dp"
         android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_button2"
         android:scrollbarSize="4dp"
         android:text="@string/Guest"
         android:textSize="20sp"

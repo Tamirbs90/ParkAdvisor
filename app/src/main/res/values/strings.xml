@@ -1,21 +1,564 @@
 <resources>
     <string name="app_name">Park Advisor</string>
-    <string name="Driver_Name">Driver Name:</string>
     <string name="Sign_In">Login</string>
     <string name="Guest">Register</string>
-    <string name="Park_Advisor">PARK ADVISOR</string>
-    <string name="App_Logo">App Logo</string>
     <string name="prompt_user_name">User Name</string>
     <string name="prompt_password">Password</string>
-    <string name="error_invalid_password">Password must be above 5 characters</string>
-    <string name="error_incorrect_password">Wrong password!</string>
-    <string name="error_field_required">Password</string>
-    <string name="login_failed">"This field is required"</string>
     <string name="Register">Register</string>
-    <string name="not_registered">Not Registered?</string>
+    <string name="result">Result: </string>
+    <string name="camera_return">Return to Camera</string>
+    <string name="payment">Payment: </string>
+    <string name="until">Until: </string>
+    <string name="remark">Remarks: </string>
+    <string name="start">Start Parking</string>
+    <string name="welcome">Welcome to Park Advisor</string>
+    <string name="stop">Stop Parking</string>
     <string name="first_name">First Name</string>
     <string name="user_name">User Name</string>
     <string name="last_name">Last Name</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="timer">Parking is expiring in: </string>
     <string name="Login">Login</string>
+    <string name="country">Country</string>
+    <string name="current_location">Update Your Current Location</string>
+    <string name="search">Search</string>
+    <string name="city">City</string>
+    <string name="choose_vehicle">Choose Vehicle Type</string>
+    <string name="camera">Take a Picture</string>
+    <string name="gallery">Gallery</string>
+    <string name="img1Details">"Parking is forbidden from 8:30-13 except school buses"</string>
+    <string name="img2Details">"Parking is in payment and allowed for 3 hours\n " +
+                        "at SUN-THU from 8-18\n " +
+                        "and at Friday from 8-13"</string>
+    <string name="img3Details">"Parking is forbidden for vehicle above 4 tones from 19-6"</string>
+    <string name="img4Details">"Parking is in payment at SUN-THU from 9-17\n " +
+                        "and At FRI from 9-13 except Tel Aviv-Jaffa Residents\n" +
+                        "From 17-9 parking is for local residents only"</string>
+    <string name="img5Details">"Parking is forbidden at SUN-FRI from 7:30-8:30 except buses"</string>
+    <string name="img6Details">"Parking is in payment in SUN-THU from 9-17\n " +
+                        "and in FRI from 9-14\n" +
+                        "in other hours parking is for vehicles\n " +
+                        "less than 2 tones only"</string>
+    <string name="img7Details">"Parking is forbidden except school buses on\n " +
+                        "SUN-THU at 7:30-8:30 and 15:30-16:30\n" +
+                        "and FRI at 7:30-8:30 and 12:30-13:30"</string>
+    <string name="img8Details">"Parking is for police vehicle only"</string>
+    <string name="img9Details">"Parking is in payment on SUN-THU from 9-19\n" +
+                        "and on FRI from 9-13\n" +
+                        "Parking is always free for Tel Aviv-Jaffa residents"</string>
+    <string name="img10Details">"Parking is forbidden for vehicle above 4 tones\n" +
+                        "from 20-8 the other day"</string>
+    <string name="img11Details">"Parking is forbidden for vehicle above 4 tones\n" +
+                        "from 19-6 the other day"</string>
+    <string name="img12Details">"Parking is for Taxies only"</string>
+    <string name="img13Details">"Parking is forbidden from at Sunday until Thursday from 7-14"</string>
+    <string name="img14Details">"Parking is forbidden from 7-19\n" +
+                        "from 19-7 the other day, parking is forbidden\n" +
+                        "to vehicles above 2.5 tones"</string>
+    <string name="img15Details">"Parking is in payment on SUN-THU from 9-17\n" +
+                        "and on FRI from 9-13.\n" +
+                        "Parking is always free for Givatayim residents"</string>
+    <string name="img16Details">"Parking is in payment on SUN-THU from 9-19\n" +
+                        "and on FRI from 9-13.\n" +
+                        "Parking is always free for local residents"</string>
+    <string name="img17Details">"Parking is forbidden in SUN-THU from 9-17\n" +
+                        "and on FRI from 9-14"</string>
+    <string name="location_question">Are you at? (Choose your location)</string>
+    <string name="type">Vehicle Type</string>
+    <string-array name="vehicle_types">
+        <item></item>
+        <item>Private Vehicle</item>
+        <item>2.5-4 Ton Vehicle</item>
+        <item>Taxi</item>
+        <item>School Bus</item>
+        <item>Above 4 Tone Vehicle</item>
+    </string-array>
+
+    <string-array name="countries" formatted="false" translatable="false">
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Antigua and Barbuda</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Aruba</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Azerbaijan</item>
+        <item>Bahamas</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Barbados</item>
+        <item>Belarus</item>
+        <item>Belgium</item>
+        <item>Belize</item>
+        <item>Benin</item>
+        <item>Bermuda</item>
+        <item>Bhutan</item>
+        <item>Bolivia</item>
+        <item>Bosnia and Herzegovina</item>
+        <item>Botswana</item>
+        <item>Brazil</item>
+        <item>British Virgin Islands</item>
+        <item>Brunei</item>
+        <item>Bulgaria</item>
+        <item>Burkina Faso</item>
+        <item>Burundi</item>
+        <item>Cambodia</item>
+        <item>Cameroon</item>
+        <item>Canada</item>
+        <item>Canary Islands</item>
+        <item>Cape Verde</item>
+        <item>Cayman Islands</item>
+        <item>Central African Republic</item>
+        <item>Ceuta and Melilla</item>
+        <item>Chad</item>
+        <item>Chile</item>
+        <item>China</item>
+        <item>Colombia</item>
+        <item>Comoros</item>
+        <item>Congo [DRC]</item>
+        <item>Congo [Republic]</item>
+        <item>Costa Rica</item>
+        <item>Croatia</item>
+        <item>Cuba</item>
+        <item>Curaçao</item>
+        <item>Cyprus</item>
+        <item>Czech Republic</item>
+        <item>Côte d’Ivoire</item>
+        <item>Denmark</item>
+        <item>Djibouti</item>
+        <item>Dominica</item>
+        <item>Dominican Republic</item>
+        <item>Ecuador</item>
+        <item>Egypt</item>
+        <item>El Salvador</item>
+        <item>Equatorial Guinea</item>
+        <item>Eritrea</item>
+        <item>Estonia</item>
+        <item>Ethiopia</item>
+        <item>Europe</item>
+        <item>Faroe Islands</item>
+        <item>Fiji</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>French Guiana</item>
+        <item>French Polynesia</item>
+        <item>Gabon</item>
+        <item>Gambia</item>
+        <item>Georgia</item>
+        <item>Germany</item>
+        <item>Ghana</item>
+        <item>Gibraltar</item>
+        <item>Greece</item>
+        <item>Greenland</item>
+        <item>Grenada</item>
+        <item>Guadeloupe</item>
+        <item>Guam</item>
+        <item>Guatemala</item>
+        <item>Guernsey</item>
+        <item>Guinea</item>
+        <item>Guinea-Bissau</item>
+        <item>Guyana</item>
+        <item>Haiti</item>
+        <item>Honduras</item>
+        <item>Hong Kong</item>
+        <item>Hungary</item>
+        <item>Iceland</item>
+        <item>India</item>
+        <item>Indonesia</item>
+        <item>Iran</item>
+        <item>Iraq</item>
+        <item>Ireland</item>
+        <item>Isle of Man</item>
+        <item>Israel</item>
+        <item>Italy</item>
+        <item>Jamaica</item>
+        <item>Japan</item>
+        <item>Jersey</item>
+        <item>Jordan</item>
+        <item>Kazakhstan</item>
+        <item>Kenya</item>
+        <item>Kiribati</item>
+        <item>Kuwait</item>
+        <item>Kyrgyzstan</item>
+        <item>Laos</item>
+        <item>Latin America</item>
+        <item>Latvia</item>
+        <item>Lebanon</item>
+        <item>Lesotho</item>
+        <item>Liberia</item>
+        <item>Libya</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Macau</item>
+        <item>Macedonia [FYROM]</item>
+        <item>Madagascar</item>
+        <item>Malawi</item>
+        <item>Malaysia</item>
+        <item>Mali</item>
+        <item>Malta</item>
+        <item>Marshall Islands</item>
+        <item>Martinique</item>
+        <item>Mauritania</item>
+        <item>Mauritius</item>
+        <item>Mayotte</item>
+        <item>Mexico</item>
+        <item>Micronesia</item>
+        <item>Moldova</item>
+        <item>Monaco</item>
+        <item>Mongolia</item>
+        <item>Montenegro</item>
+        <item>Morocco</item>
+        <item>Mozambique</item>
+        <item>Myanmar [Burma]</item>
+        <item>Namibia</item>
+        <item>Nepal</item>
+        <item>Netherlands</item>
+        <item>New Caledonia</item>
+        <item>New Zealand</item>
+        <item>Nicaragua</item>
+        <item>Niger</item>
+        <item>Nigeria</item>
+        <item>North Korea</item>
+        <item>Northern Mariana Islands</item>
+        <item>Norway</item>
+        <item>Oman</item>
+        <item>Pakistan</item>
+        <item>Palau</item>
+        <item>Palestine</item>
+        <item>Panama</item>
+        <item>Papua New Guinea</item>
+        <item>Paraguay</item>
+        <item>Peru</item>
+        <item>Philippines</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Puerto Rico</item>
+        <item>Qatar</item>
+        <item>Romania</item>
+        <item>Russia</item>
+        <item>Rwanda</item>
+        <item>Réunion</item>
+        <item>Saint Barthélemy</item>
+        <item>Saint Kitts and Nevis</item>
+        <item>Saint Lucia</item>
+        <item>Saint Martin</item>
+        <item>Saint Vincent and the Grenadines</item>
+        <item>Samoa</item>
+        <item>San Marino</item>
+        <item>Saudi Arabia</item>
+        <item>Senegal</item>
+        <item>Serbia</item>
+        <item>Seychelles</item>
+        <item>Sierra Leone</item>
+        <item>Singapore</item>
+        <item>Sint Maarten</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Solomon Islands</item>
+        <item>Somalia</item>
+        <item>South Africa</item>
+        <item>South Korea</item>
+        <item>South Sudan</item>
+        <item>Spain</item>
+        <item>Sri Lanka</item>
+        <item>Sudan</item>
+        <item>Suriname</item>
+        <item>Swaziland</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Syria</item>
+        <item>São Tomé and Príncipe</item>
+        <item>Taiwan</item>
+        <item>Tanzania</item>
+        <item>Thailand</item>
+        <item>Timor-Leste</item>
+        <item>Togo</item>
+        <item>Tonga</item>
+        <item>Trinidad and Tobago</item>
+        <item>Tunisia</item>
+        <item>Turkey</item>
+        <item>Turks and Caicos Islands</item>
+        <item>U.S. Outlying Islands</item>
+        <item>U.S. Virgin Islands</item>
+        <item>Uganda</item>
+        <item>Ukraine</item>
+        <item>United Arab Emirates</item>
+        <item>United Kingdom</item>
+        <item>United States</item>
+        <item>Uruguay</item>
+        <item>Uzbekistan</item>
+        <item>Vanuatu</item>
+        <item>Venezuela</item>
+        <item>Vietnam</item>
+        <item>Western Sahara</item>
+        <item>Yemen</item>
+        <item>Zambia</item>
+        <item>Zimbabwe</item>
+    </string-array>
+    <string-array name="israeli_cities">
+        <item>Abu Ghosh</item>
+        <item>Even Yehuda</item>
+        <item>Um Al-Fahm</item>
+        <item>Ofaqim</item>
+        <item>Or Haner</item>
+        <item>Or Yehuda</item>
+        <item>Or Aqiva</item>
+        <item>Oranit</item>
+        <item>Azor</item>
+        <item>Ahisamakh</item>
+        <item>Iksal</item>
+        <item>Allone Abba</item>
+        <item>Alfe Menashe</item>
+        <item>Elqana</item>
+        <item>Emunim</item>
+        <item>Ibillin</item>
+        <item>Arbel</item>
+        <item>Arsuf</item>
+        <item>Ashdod</item>
+        <item>Ashdot Yaakov</item>
+        <item>Ashqelon</item>
+        <item>Eshtaol</item>
+        <item>Baqa Al-Gharbiyye</item>
+        <item>Beer Toviyya</item>
+        <item>Beer Sheva</item>
+        <item>Beerot Yitzhak</item>
+        <item>Beeri</item>
+        <item>Bustan Hagalil</item>
+        <item>Bir El-Maksur</item>
+        <item>Bet Alfa</item>
+        <item>Bet Berl</item>
+        <item>Bet Guvrin</item>
+        <item>Bet Dagan</item>
+        <item>Bet Hashita</item>
+        <item>Bet Horon</item>
+        <item>Bet Lehem</item>
+        <item>Bet Qama</item>
+        <item>Bet Shean</item>
+        <item>Bet Shemesh</item>
+        <item>Bitan Aharon</item>
+        <item>Beitar Illit</item>
+        <item>Bene Beraq</item>
+        <item>Bene Yehuda</item>
+        <item>Bene Atarot</item>
+        <item>Bene Ziyyon</item>
+        <item>Binyamina-Givat Ada</item>
+        <item>Basmat Tabun</item>
+        <item>Bat Yam</item>
+        <item>Jaljulye</item>
+        <item>Jisr Az-Zarqa</item>
+        <item>Jatt</item>
+        <item>Givat Brenner</item>
+        <item>Givat Zeev</item>
+        <item>Givat Shmuel</item>
+        <item>Givatayim</item>
+        <item>Gedera</item>
+        <item>Gezer</item>
+        <item>Gelil Yam</item>
+        <item>Gan Yavne</item>
+        <item>Gan Ner</item>
+        <item>Gan Soreq</item>
+        <item>Gan Shmuel</item>
+        <item>Gannot</item>
+        <item>Gane Tiqwa</item>
+        <item>Gaash</item>
+        <item>Gat</item>
+        <item>Gat Rimmon</item>
+        <item>Daliyat El-Karmel</item>
+        <item>Deganya Alef</item>
+        <item>Deganya Beit</item>
+        <item>Dimona</item>
+        <item>Hagoshrim</item>
+        <item>Hod Hasharon</item>
+        <item>Holon</item>
+        <item>Har Adar</item>
+        <item>Herzliyya</item>
+        <item>Ziqim</item>
+        <item>Zikhron Yaaqov</item>
+        <item>Havazelet Hasharon</item>
+        <item>Hagor</item>
+        <item>Hedera</item>
+        <item>Hulda</item>
+        <item>Hurfeish</item>
+        <item>Haifa</item>
+        <item>Hemed</item>
+        <item>Hazor Hagelilit</item>
+        <item>Hazerim</item>
+        <item>Harish</item>
+        <item>Hashmonaim</item>
+        <item>Tiberias</item>
+        <item>Tuba-Zangariyye</item>
+        <item>Turan</item>
+        <item>Tayibe</item>
+        <item>Tira</item>
+        <item>Tirat Hakarmel</item>
+        <item>Tirat Zevi</item>
+        <item>Tamra</item>
+        <item>Yanuah-Jat</item>
+        <item>Yavneel</item>
+        <item>Yavne</item>
+        <item>Yagel</item>
+        <item>Yad Mordekhay</item>
+        <item>Yotvata</item>
+        <item>Eilat</item>
+        <item>Yesud Hamaala</item>
+        <item>Yaqum</item>
+        <item>Yoqneam</item>
+        <item>Yeroham</item>
+        <item>Jerusalem</item>
+        <item>Yirka</item>
+        <item>Yashresh</item>
+        <item>Yated</item>
+        <item>Kokhav Yair</item>
+        <item>Kissufim</item>
+        <item>Kannot</item>
+        <item>Kinneret</item>
+        <item>Kuseife</item>
+        <item>Kefar Blum</item>
+        <item>Kefar Yona</item>
+        <item>Kefar Azza</item>
+        <item>Kefar Netter</item>
+        <item>Kefar Sava</item>
+        <item>Kefar Kanna</item>
+        <item>Kefar Qasem</item>
+        <item>Kefar Qara</item>
+        <item>Kefar Ruppin</item>
+        <item>Kefar Rut</item>
+        <item>Kefar Shemaryahu</item>
+        <item>Kefar Tavor</item>
+        <item>Kerem Shalom</item>
+        <item>Karme Yosef</item>
+        <item>Karmiel</item>
+        <item>Lehavim</item>
+        <item>Lod</item>
+        <item>Lakhish</item>
+        <item>Lappid</item>
+        <item>Laqye</item>
+        <item>Mevo Horon</item>
+        <item>Mevo Modiim</item>
+        <item>Mevoot Yam</item>
+        <item>Mabbuim</item>
+        <item>Mevasseret Zyion</item>
+        <item>Majd Al-Kurum</item>
+        <item>Majdal Shams</item>
+        <item>Modiin-Makkabim-Reut</item>
+        <item>Mughar</item>
+        <item>Migdal</item>
+        <item>Migdal Haemeq</item>
+        <item>Megido</item>
+        <item>Magal</item>
+        <item>Modiin Illit</item>
+        <item>Moledet</item>
+        <item>Mazkeret Batya</item>
+        <item>Mizra</item>
+        <item>Metula</item>
+        <item>Mikhmoret</item>
+        <item>Maagan Mikhael</item>
+        <item>Maalot Tarshiha</item>
+        <item>Mizpe Ramon</item>
+        <item>Mishmar Hashiva</item>
+        <item>Nevatim</item>
+        <item>Nahalal</item>
+        <item>Nahariyya</item>
+        <item>Newe Ilan</item>
+        <item>Netaim</item>
+        <item>Nizzanim</item>
+        <item>Nir David</item>
+        <item>Nir Zevi</item>
+        <item>Nes Ziyyona</item>
+        <item>Naan</item>
+        <item>Nezer Sereni</item>
+        <item>Nazereth</item>
+        <item>Nazerat Illit</item>
+        <item>Nesher</item>
+        <item>Netivot</item>
+        <item>Netanya</item>
+        <item>Sasa</item>
+        <item>Savyon</item>
+        <item>Sakhnin</item>
+        <item>Sappir</item>
+        <item>Sitiriyya</item>
+        <item>Omer</item>
+        <item>En Gev</item>
+        <item>En Gedi</item>
+        <item>En Harod</item>
+        <item>Isifya</item>
+        <item>Afula</item>
+        <item>Arrabe</item>
+        <item>Arad</item>
+        <item>Arugot</item>
+        <item>Arara</item>
+        <item>Arara-Banegev</item>
+        <item>Aseret</item>
+        <item>Atlit</item>
+        <item>Paran</item>
+        <item>Fureidis</item>
+        <item>Poriyya Illit</item>
+        <item>Palmahim</item>
+        <item>Peqiin</item>
+        <item>Pardes Hanna-Karkur</item>
+        <item>Pardesiyya</item>
+        <item>petah Tiqwa</item>
+        <item>Zeelim</item>
+        <item>Zova</item>
+        <item>Zur Hadasa</item>
+        <item>Zefat</item>
+        <item>Qadima-Zoran</item>
+        <item>Qidron</item>
+        <item>Qesaryya</item>
+        <item>Qalansawe</item>
+        <item>Qazir</item>
+        <item>Qazrin</item>
+        <item>Qiryat Ono</item>
+        <item>Qiryat Gat</item>
+        <item>Qiryat Bialik</item>
+        <item>Qiryat Arba</item>
+        <item>Qiryat Atta</item>
+        <item>Qiryat Tivon</item>
+        <item>Qiryat Yam</item>
+        <item>Qiryat Yearim</item>
+        <item>Qiryat Motzkin</item>
+        <item>Qiryat Malakhi</item>
+        <item>Qiryat Anavim</item>
+        <item>Qiryat Eqron</item>
+        <item>Qiryat Shemona</item>
+        <item>Qarne Shomeron</item>
+        <item>Rosh Haayin</item>
+        <item>Rosh Pinna</item>
+        <item>Rishon Le-Zion</item>
+        <item>Regba</item>
+        <item>Regavim</item>
+        <item>Rahat</item>
+        <item>Rehovot</item>
+        <item>Ramla</item>
+        <item>Ramat Gan</item>
+        <item>Ramat Hasharon</item>
+        <item>Ramat Yishay</item>
+        <item>Raannana</item>
+        <item>Rishpon</item>
+        <item>Segev-Shalom</item>
+        <item>Sede Boqer</item>
+        <item>Sedot Yam</item>
+        <item>Sederot</item>
+        <item>Shoham</item>
+        <item>Shoresh</item>
+        <item>Shelomi</item>
+        <item>Shaalavim</item>
+        <item>Shaare Tiqwa</item>
+        <item>Shefayim</item>
+        <item>Shefaram</item>
+        <item>Tel Aviv-Yafo</item>
+        <item>Tel Mond</item>
+        <item>Tel Sheva</item>
+    </string-array>
+    <string-array name="germany_cities">
+        <item>Berlin</item>
+        <item>Hamburg</item>
+        <item>Munich</item>
+    </string-array>
 </resources>

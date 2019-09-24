@@ -7,7 +7,7 @@
         android:width="70dp"/>
 
     <gradient
-        android:startColor="@color/lightorange"
+        android:startColor="@color/light_orange"
         android:endColor="@color/orange"
         android:type="radial"
         android:gradientRadius="100dp"/>

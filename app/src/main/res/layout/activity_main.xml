@@ -9,29 +9,31 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="433dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/parking_sign"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/signInBtn"
-        android:layout_width="145dp"
+        android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
+        android:textAllCaps="false"
         android:scrollbarSize="4dp"
         android:text="@string/Sign_In"
         android:textSize="20sp"
+        android:background="@drawable/round_button2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/guestBtn"
-        android:layout_width="145dp"
+        android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -41,6 +43,8 @@
         android:scrollbarSize="4dp"
         android:text="@string/Guest"
         android:textSize="20sp"
+        android:background="@drawable/round_button2"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.993"

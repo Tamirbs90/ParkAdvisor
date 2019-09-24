@@ -11,8 +11,6 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,13 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-/**
- * Cette classe est la seule Activité de la librarie.
- * C'est le cas afin de faciliter le renvoi des données lors de la récupération des données
- * dans le onActivityResult de l'application externe.
- * Cette activité se remplie avec des fragments, cela provoque cependant un ecran vide si l'utilisateur appui plusieurs
- * fois sur la touche "retour" lors du traitement des images.
- */
 public class ScanActivity extends AppCompatActivity implements ComponentCallbacks2 {
 
     private final String TAG = "ScanActivityDebug";
@@ -51,12 +42,11 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
         onEditionFragment = false;
     }
 
-    // Ouvre les medias ou la camera en fonction de la demande de l'utilisateur
     private void handleIntentPreference() {
         int preference = getPreferenceContent();
         if (preference == ScanConstants.OPEN_CAMERA) {
             openCamera();
-        } else if (preference == ScanConstants.OPEN_GALERIE) {
+        } else if (preference == ScanConstants.OPEN_GALLERY) {
             openMediaContent();
         }
     }
@@ -65,7 +55,6 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
         return getIntent().getIntExtra(ScanConstants.OPEN_INTENT_PREFERENCE, 0);
     }
 
-    // Ouvre les médias
     public void openMediaContent() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -73,19 +62,16 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
         startActivityForResult(intent, ScanConstants.PICKFILE_REQUEST_CODE);
     }
 
-    // Ouvre la camera
     public void openCamera() {
-        Intent intent = new Intent(this, CameraActivity.class);
+        Intent intent = new Intent(this, CameraBackendActivity.class);
         startActivityForResult(intent, ScanConstants.START_CAMERA_REQUEST_CODE);
     }
 
-    // Supprime les fichiers temporaires utiles aux traitements des images
     void clearTempImages() {
         try {
             File tempFolder = new File(ScanConstants.IMAGE_PATH);
             for (File f : tempFolder.listFiles())
-                if (!f.delete())
-                    Log.d(TAG, "clearTempImages: Impossible de supprimer les fichiers");
+                if (!f.delete()){}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,16 +101,16 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
         if (bitmap != null) {
             postImagePick(bitmap);
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
-    // Traitement de l'image selectionnée
     protected void postImagePick(Bitmap bitmap) {
         Uri uri = getUri(bitmap);
         bitmap.recycle();
         onBitmapSelect(uri);
     }
 
-    // Set le fragment de validation de la forme du document
     public void onBitmapSelect(Uri uri) {
         ShapeValidationFragment fragment = new ShapeValidationFragment();
         Bundle bundle = new Bundle();
@@ -137,7 +123,6 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
         fragmentTransaction.commit();
     }
 
-    // Récupère le Bitmap lié à l'Uri passée en paramètre
     private Bitmap getBitmap(Uri selectedimg) throws IOException {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 1;
@@ -148,7 +133,6 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
         fileDescriptor.getFileDescriptor(), null, options);
     }
 
-    // Enregistre le Bitmap et renvoie son Uri
     public static Uri getUri(Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -159,7 +143,6 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
         return Uri.parse(ScanConstants.IMAGE_PATH+"/originale.jpg");
     }
 
-    // Après la validation de la forme, set le fragment d'édition du document
     public void onScanFinish(Uri uri) {
         EditionFragment fragment = new EditionFragment();
         Bundle bundle = new Bundle();
@@ -173,7 +156,6 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
         onEditionFragment = true;
     }
 
-    // Renvoie le bitmap redimentionné en fonction de la taille passée en paramètre
     Bitmap scaledBitmap(Bitmap bitmap, int width, int height) {
         Matrix m = new Matrix();
         m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()), new RectF(0, 0, width, height), Matrix.ScaleToFit.CENTER);
@@ -184,48 +166,21 @@ public class ScanActivity extends AppCompatActivity implements ComponentCallback
     public void onTrimMemory(int level) {
         switch (level) {
             case ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN:
-                /*
-                   Release any UI objects that currently hold memory.
-
-                   The user interface has moved to the background.
-                */
                 break;
             case ComponentCallbacks2.TRIM_MEMORY_RUNNING_MODERATE:
             case ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW:
             case ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL:
-                /*
-                   Release any memory that your app doesn't need to run.
-
-                   The device is running low on memory while the app is running.
-                   The event raised indicates the severity of the memory-related event.
-                   If the event is TRIM_MEMORY_RUNNING_CRITICAL, then the system will
-                   begin killing background processes.
-                */
                 break;
             case ComponentCallbacks2.TRIM_MEMORY_BACKGROUND:
             case ComponentCallbacks2.TRIM_MEMORY_MODERATE:
             case ComponentCallbacks2.TRIM_MEMORY_COMPLETE:
-                /*
-                   Release as much memory as the process can.
-
-                   The app is on the LRU list and the system is running low on memory.
-                   The event raised indicates where the app sits within the LRU list.
-                   If the event is TRIM_MEMORY_COMPLETE, the process will be one of
-                   the first to be terminated.
-                */
                 new AlertDialog.Builder(this)
-                        .setTitle(getResources().getString(R.string.peu_de_memoire))
-                        .setMessage(getResources().getString(R.string.peu_de_memoire_desc))
+                        .setTitle(getResources().getString(R.string.little_memory))
+                        .setMessage(getResources().getString(R.string.little_memory_desc))
                         .create()
                         .show();
                 break;
             default:
-                /*
-                  Release any non-critical data structures.
-
-                  The app received an unrecognized memory level value
-                  from the system. Treat this as a generic low-memory message.
-                */
                 break;
         }
     }

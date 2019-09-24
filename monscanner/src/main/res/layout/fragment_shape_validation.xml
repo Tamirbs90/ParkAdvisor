@@ -24,7 +24,7 @@
             android:layout_margin="8dp"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:src="@drawable/infos" />
+            android:src="@drawable/info" />
     </LinearLayout>
 
     <FrameLayout
@@ -34,7 +34,7 @@
         android:layout_weight="1">
 
         <FrameLayout
-            android:id="@+id/sourceframe"
+            android:id="@+id/sourceFrame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/scanPadding">
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:srcCompat="@color/colorPrimary"
-                android:contentDescription="@string/image_selectionnee" />
+                android:contentDescription="@string/image_selection" />
         </FrameLayout>
 
         <com.example.monscanner.PolygonView
@@ -61,21 +61,15 @@
         android:layout_weight="0"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/switchButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_popup_sync" />
-
         <Button
             android:id="@+id/scanButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:layout_weight="4"
+            android:textSize="20sp"
             android:background="@drawable/round_rectangle_button"
-            android:text="@string/valider"
+            android:text="@string/confirm"
             android:layout_margin="8dp"/>
     </LinearLayout>
 

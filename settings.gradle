@@ -1,1 +1,2 @@
-include ':app', ':monscanner', ':opencv'
+include ':app', ':monscanner'
+include ':openCVLibrary345'

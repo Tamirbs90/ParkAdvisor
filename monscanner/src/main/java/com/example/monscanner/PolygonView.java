@@ -14,16 +14,8 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-/**
- * Created by jhansi on 28/03/15.
- *
- * Cette classe provient de la library scanlibrary
- * addresse github : https://github.com/jhansireddy/AndroidScannerDemo
- * Un peu (pas mal) améliorée pour la fonction getOrderedPoints
- */
 public class PolygonView extends FrameLayout {
 
     private static final String TAG = "PolygonViewDebug";
@@ -230,8 +222,8 @@ public class PolygonView extends FrameLayout {
     private class MidPointTouchListenerImpl implements OnTouchListener
     {
 
-        PointF DownPT = new PointF(); // Record Mouse Position When Pressed Down
-        PointF StartPT = new PointF(); // Record Start Position of 'img'
+        PointF DownPT = new PointF();
+        PointF StartPT = new PointF();
 
         private ImageView mainPointer1;
         private ImageView mainPointer2;
@@ -318,8 +310,8 @@ public class PolygonView extends FrameLayout {
 
     private class TouchListenerImpl implements OnTouchListener {
 
-        PointF DownPT = new PointF(); // Record Mouse Position When Pressed Down
-        PointF StartPT = new PointF(); // Record Start Position of 'img'
+        PointF DownPT = new PointF();
+        PointF StartPT = new PointF();
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -355,6 +347,4 @@ public class PolygonView extends FrameLayout {
         }
 
     }
-
-
 }

@@ -5,13 +5,15 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.PointF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -48,16 +50,6 @@ import static java.lang.Math.sqrt;
 import static org.opencv.core.CvType.CV_8U;
 import static org.opencv.core.CvType.CV_8UC3;
 
-/**
- * Cette classe est un fragment permettant de selectionner le document dans
- * l'image sélectionnée.
- * Le but est de détecter le document dans l'imaage. C'est à dire le plus grand
- * rectangle dans la plupart des cas. Cette détection se fait grace à la librairie
- * openCV. La mise en place d'une rapide hiérarchie des rectangles obtenus permet une
- * meilleure détection.
- * Il est possible de changer la forme détectée manuellement ou en appuyant sur le bouton de
- * parcours des contours
- */
 public class ShapeValidationFragment extends Fragment {
 
     private final String TAG = "ShapeValidationDebug";
@@ -92,35 +84,29 @@ public class ShapeValidationFragment extends Fragment {
 
     private void init() {
 
-        // Set des OnClickListeners sur les boutons
-        ImageButton infosButton = view.findViewById(R.id.shapeInfoButton);
+        ImageButton infosButton = (ImageButton)view.findViewById(R.id.shapeInfoButton);
         infosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openInfos(v);
             }
         });
-        Button scanButton = view.findViewById(R.id.scanButton);
+        Button scanButton = (Button)view.findViewById(R.id.scanButton);
         scanButton.setOnClickListener(new ScanButtonListener());
-        ImageButton switchButton = view.findViewById(R.id.switchButton);
-        switchButton.setOnClickListener(new SwitchListener());
 
-        polygonView = view.findViewById(R.id.polygonView);
-        imageView = view.findViewById(R.id.scanImageView);
-        sourceframe = view.findViewById(R.id.sourceframe);
+        polygonView = (PolygonView) view.findViewById(R.id.polygonView);
+        imageView = (ImageView) view.findViewById(R.id.scanImageView);
+        sourceframe = (FrameLayout) view.findViewById(R.id.sourceFrame);
 
         srcGray = new Mat();
         src = new Mat();
 
-        // création du dossier des images temporaires
         folder = Environment.getExternalStorageDirectory();
         folder = new File(ScanConstants.IMAGE_PATH);
         if (!folder.exists()) {
-            if(!folder.mkdir())
-                Log.d(TAG, "onCreate: impossible de créer le dossier temp");
+            if(!folder.mkdir()){}
         }
 
-        // lancement de la recherche du document
         showProgressDialog(getString(R.string.analyse_image));
         final Uri uri = getArguments().getParcelable(ScanConstants.SELECTED_BITMAP);
         sourceframe.post(new Runnable() {
@@ -132,6 +118,20 @@ public class ShapeValidationFragment extends Fragment {
         });
     }
 
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
     private void openInfos(View v) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View content = inflater.inflate(R.layout.popup_shape_infos,null);
@@ -139,7 +139,6 @@ public class ShapeValidationFragment extends Fragment {
         popupInfos.showAsDropDown(v);
     }
 
-    // generation du bitmap redimentionné et lancement de la suite de la recherche du document
     private void shapeDetection(final Uri uri) {
         try {
             File file = new File(uri.getPath());
@@ -159,21 +158,14 @@ public class ShapeValidationFragment extends Fragment {
         dismissDialog();
     }
 
-    // recherche des points correspondants aux coins du document
     private MatOfPoint getPoints() {
         Mat blurred = new Mat();
-
-        // valeur à modifier pour ajustements de la recherche de rectangles
         Imgproc.medianBlur(scaled, blurred, 9);
         Mat threshOutput = new Mat(blurred.size(), CV_8U);
         squares = new ArrayList<>();
         List<MatOfPoint> threshSquares = new ArrayList<>();
         SparseArray<MatOfPoint> cannySquares = new SparseArray<>();
         indices = new ArrayList<>();
-
-
-        // valeur à modifier pour ajustements de la recherche de rectangles
-
         for (int c = 0; c < 3; c++) {
 
             int[] ch = {c, 0};
@@ -183,9 +175,6 @@ public class ShapeValidationFragment extends Fragment {
             List<Mat> loutput = new ArrayList<>();
             loutput.add(threshOutput);
             Core.mixChannels(lblurred,loutput,cmat);
-//            Imgcodecs.imwrite(ScanConstants.IMAGE_PATH+"/"+c+".jpg",threshOutput);
-
-            // tests de differents threshold
             int threshold_level = 3;
             for (int l = 0; l < threshold_level; l++) {
                 if (l == 0) {
@@ -193,17 +182,11 @@ public class ShapeValidationFragment extends Fragment {
                     for (int t=10; t<=60; t+=10) {
                         Imgproc.Canny(threshOutput, srcGray, t, t * 2);
                         Imgproc.dilate(srcGray, srcGray, new Mat(), new Point(-1, -1), 2);
-//                        Imgcodecs.imwrite(ScanConstants.IMAGE_PATH + "/" + c + "_" + l + "_" + t + ".jpg", srcGray);
-
                         findCannySquares(srcGray,cannySquares,c+t);
                     }
 
                 } else {
-
-                    // valeurs et calcul à modifier pour ajustements de la recherche de rectangles
                     Imgproc.threshold(threshOutput, srcGray, 200 - 175 / (l + 2f), 256, Imgproc.THRESH_BINARY);
-//                    Imgcodecs.imwrite(ScanConstants.IMAGE_PATH + "/" + c + "" + l + ".jpg", srcGray);
-
                     findThreshSquares(srcGray, threshSquares);
                 }
             }
@@ -213,7 +196,6 @@ public class ShapeValidationFragment extends Fragment {
         if (indiceMax != -1)
             squares.add(cannySquares.get(indiceMax));
 
-        // Suppression des quadrilatères peu probables c'est à dire ceux qui touchent les bords
         List<MatOfPoint> squaresProba = new ArrayList<>();
         MatOfPoint pointsProba;
         List<Point> pointsList;
@@ -234,7 +216,6 @@ public class ShapeValidationFragment extends Fragment {
             }
         }
 
-        // selection du quadrilatère le plus grand
         int largest_contour_index = 0;
         MatOfPoint points = new MatOfPoint();
         if (squaresProba.size()!=0) {
@@ -281,7 +262,6 @@ public class ShapeValidationFragment extends Fragment {
         }
         squares.add(points);
 
-        // Ajout des autres contours après les 2 plus importants
         for (int id : indices) {
             if (id!=indiceMax)
                 squares.add(cannySquares.get(id));
@@ -306,18 +286,15 @@ public class ShapeValidationFragment extends Fragment {
 
 
     private void findCannySquares(Mat srcGray, SparseArray<MatOfPoint> cannySquares, int indice) {
-        // recherche des contours
         List<MatOfPoint> contours = new ArrayList<>();
         Imgproc.findContours(srcGray, contours, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
         MatOfPoint2f approx = new MatOfPoint2f();
         for (int i = 0; i < contours.size(); i++) {
             MatOfPoint2f contour = new MatOfPoint2f();
             contour.fromArray(contours.get(i).toArray());
-            // detection des formes géometriques
             Imgproc.approxPolyDP(contour, approx, Imgproc.arcLength(contour, true) * 0.03, true);
             MatOfPoint approx1f = new MatOfPoint();
             approx1f.fromArray(approx.toArray());
-            // détection des quadrilatères parmis les formes géométriques
             if (approx.total() == 4 && abs(Imgproc.contourArea(approx)) > (scaled.size().width / 5) * (scaled.size().height / 5) && Imgproc.isContourConvex(approx1f)) {
                 double maxCosine = 0;
 
@@ -325,7 +302,6 @@ public class ShapeValidationFragment extends Fragment {
                     double cosine = abs(angle(approx.toArray()[j % 4], approx.toArray()[j - 2], approx.toArray()[j - 1]));
                     maxCosine = max(maxCosine, cosine);
                 }
-                // selection des quadrilatères ayant des angles assez grands
                 if (maxCosine < 0.5) {
                     cannySquares.put(indice,approx1f);
                     indices.add(indice);
@@ -335,18 +311,15 @@ public class ShapeValidationFragment extends Fragment {
     }
 
     private void findThreshSquares(Mat srcGray, List<MatOfPoint> threshSquares) {
-        // recherche des contours
         List<MatOfPoint> contours = new ArrayList<>();
         Imgproc.findContours(srcGray, contours, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
         MatOfPoint2f approx = new MatOfPoint2f();
         for (int i = 0; i < contours.size(); i++) {
             MatOfPoint2f contour = new MatOfPoint2f();
             contour.fromArray(contours.get(i).toArray());
-            // detection des formes géometriques
             Imgproc.approxPolyDP(contour, approx, Imgproc.arcLength(contour, true) * 0.03, true);
             MatOfPoint approx1f = new MatOfPoint();
             approx1f.fromArray(approx.toArray());
-            // détection des quadrilatères parmis les formes géométriques
             if (approx.total() == 4 && abs(Imgproc.contourArea(approx)) > (scaled.size().width / 5) * (scaled.size().height / 5) && Imgproc.isContourConvex(approx1f)) {
                 double maxCosine = 0;
 
@@ -354,7 +327,6 @@ public class ShapeValidationFragment extends Fragment {
                     double cosine = abs(angle(approx.toArray()[j % 4], approx.toArray()[j - 2], approx.toArray()[j - 1]));
                     maxCosine = max(maxCosine, cosine);
                 }
-                // selection des quadrilatères ayant des angles assez grands
                 if (maxCosine < 0.5) {
                     threshSquares.add(approx1f);
                 }
@@ -362,7 +334,6 @@ public class ShapeValidationFragment extends Fragment {
         }
     }
 
-    // Set des points du PolygonView servant à délimiter les contours du document
     private void setPoints(MatOfPoint points) {
         Point[] pts = points.toArray();
         List<PointF> pointsf = new ArrayList<>();
@@ -386,7 +357,6 @@ public class ShapeValidationFragment extends Fragment {
         });
     }
 
-    // calcul d'une valeur d'angle en fonction de 3 points
     private double angle( Point pt1, Point pt2, Point pt0 ) {
         double dx1 = pt1.x - pt0.x;
         double dy1 = pt1.y - pt0.y;
@@ -395,12 +365,10 @@ public class ShapeValidationFragment extends Fragment {
         return (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
     }
 
-    // affichage de l'image
     private void afficheimage(Bitmap bm) {
         imageView.setImageBitmap(bm);
     }
 
-    // après validation, recadrage du document afin d'en faire un rectangle
     private void scan(Mat src, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
         double w1 = sqrt( pow(x4 - x3 , 2) + pow(x4 - x3, 2));
         double w2 = sqrt( pow(x2 - x1 , 2) + pow(x2-x1, 2));
@@ -411,8 +379,6 @@ public class ShapeValidationFragment extends Fragment {
         int maxHeight = (int) ((h1 < h2) ? h1 : h2);
 
         Mat dst = Mat.zeros(maxHeight, maxWidth, CV_8UC3);
-
-        // corners of destination image with the sequence [tl, tr, bl, br]
         List<Point> dst_pts = new ArrayList<>();
         List<Point> img_pts = new ArrayList<>();
         dst_pts.add(new Point(0, 0));
@@ -429,18 +395,14 @@ public class ShapeValidationFragment extends Fragment {
         mdst.fromList(dst_pts);
         MatOfPoint2f mimg = new MatOfPoint2f();
         mimg.fromList(img_pts);
-        // get transformation matrix
         Mat transmtx = Imgproc.getPerspectiveTransform(mimg, mdst);
-        // apply perspective transformation
         Imgproc.warpPerspective(src, dst, transmtx, dst.size());
 
         Imgcodecs.imwrite(folder.getAbsolutePath()+"/scanned.jpg", dst);
     }
 
-    // fait apparaitre le dialogue d'attente
     protected synchronized void showProgressDialog(String message) {
         if (progressDialogFragment != null && progressDialogFragment.isVisible()) {
-            // Before creating another loading dialog, close all opened loading dialogs (if any)
             progressDialogFragment.dismissAllowingStateLoss();
         }
         progressDialogFragment = null;
@@ -449,12 +411,10 @@ public class ShapeValidationFragment extends Fragment {
         progressDialogFragment.show(fm, ProgressDialogFragment.class.toString());
     }
 
-    // ferme le dialogue d'attente
     protected synchronized void dismissDialog() {
         progressDialogFragment.dismissAllowingStateLoss();
     }
 
-    // lance le scan du document dont les contours sont définis par le PolygonView
     private class ScanButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -483,7 +443,6 @@ public class ShapeValidationFragment extends Fragment {
         }
     }
 
-    // Parcours la liste des quadrilatères trouvé et met à jour le polygonView
     private class SwitchListener implements View.OnClickListener {
         private int id;
 
@@ -504,7 +463,7 @@ public class ShapeValidationFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(scanner, getResources().getString(R.string.parcours_contours), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(scanner, getResources().getString(R.string.outline_contours), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

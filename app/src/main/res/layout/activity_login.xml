@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,68 +7,139 @@
     android:orientation="vertical"
     android:padding="30dp"
     tools:context=".LoginActivity">
-    
+
     <ImageView
-        android:id="@+id/loginImageView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/user_name"/>
+        android:id="@+id/usernameImageView"
+        android:layout_width="400dp"
+        android:layout_height="90dp"
+        android:src="@drawable/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_marginTop="5dp">
 
-        <EditText
-            android:id="@+id/userNameText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_user_name"
-            android:ems="10"
-            android:inputType="text"
-            android:textSize="22sp"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/userNameText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        app:passwordToggleEnabled="true"
-        android:layout_marginTop="5dp">
+        android:hint="@string/prompt_user_name"
+        android:inputType="text"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameImageView" />
 
-        <EditText
-            android:id="@+id/passwordText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:textSize="22sp"/>
-    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+        android:id="@+id/passwordText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameText2"
+        app:passwordToggleEnabled="true" />
+
+
+    <TextView
+        android:id="@+id/showLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/location_question"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordText2" />
+
+    <Button
+        android:id="@+id/currentLocation"
+        android:layout_width="match_parent"
+        android:layout_height="20sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/round_button2"
+        android:onClick="Location"
+        android:text="@string/current_location"
+        android:textAllCaps="false"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showLocation" />
+
+    <TextView
+        android:id="@+id/tvVehicleType2"
+        android:layout_width="180dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/type"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentLocation" />
+
+    <Spinner
+        android:id="@+id/vehicleSpinner2"
+        android:layout_width="63dp"
+        android:layout_height="21dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:hint="Vehicle Type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvVehicleType2"
+        app:layout_constraintTop_toBottomOf="@+id/currentLocation" />
 
     <Button
         android:id="@+id/loginLoginBtn"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/Login"
-        android:textSize="22sp"
-        android:textColor="@color/colorWhite"
+        android:layout_height="27sp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/round_button"
-        />
+        android:onClick="Login"
+        android:text="@string/Login"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVehicleType2" />
 
     <Button
         android:id="@+id/loginRegisterBtn"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/Register"
-        android:textSize="22sp"
-        android:textColor="@color/colorWhite"
+        android:layout_height="27sp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/round_button"
-        />
+        android:textAllCaps="false"
+        android:onClick="Register"
+        android:text="@string/Register"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginLoginBtn" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
